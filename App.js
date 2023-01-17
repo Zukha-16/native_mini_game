@@ -6,13 +6,32 @@ import { useState } from "react";
 import Colors from "./constants/colors";
 import StartGameScreen from "./screens/StartGameScreen";
 import GameScreen from "./screens/GameScreen";
+import GameOverScreen from "./screens/GameOverScreen";
 
 const App = () => {
   const [userNumber, setUserNumber] = useState();
+  const [gameIsOver, setGameIsOver] = useState(true);
 
   const pickedNumberHandler = (pickedNumber) => {
     setUserNumber(pickedNumber);
+    setGameIsOver(false);
   };
+
+  const gameOverHandler = () => {
+    setGameIsOver(true);
+  };
+
+  let screen = <StartGameScreen onPickedNumber={pickedNumberHandler} />;
+
+  if (userNumber) {
+    screen = (
+      <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
+    );
+  }
+
+  if (gameIsOver && userNumber) {
+    screen = <GameOverScreen />;
+  }
 
   return (
     <>
@@ -26,13 +45,7 @@ const App = () => {
           style={styles.rootScreen}
           imageStyle={{ opacity: 0.15 }}
         >
-          <SafeAreaView style={styles.rootScreen}>
-            {userNumber ? (
-              <GameScreen />
-            ) : (
-              <StartGameScreen onPickedNumber={pickedNumberHandler} />
-            )}
-          </SafeAreaView>
+          <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
         </ImageBackground>
       </LinearGradient>
       <StatusBar style="auto" />

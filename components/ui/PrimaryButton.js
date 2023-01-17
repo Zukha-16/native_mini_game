@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import Colors from "../constants/colors";
+import Colors from "../../constants/colors";
 // import { useState } from "react";
 
 const PrimaryButton = (props) => {
