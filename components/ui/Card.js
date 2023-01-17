@@ -9,6 +9,7 @@ export default Card;
 
 const styles = StyleSheet.create({
   inputContainer: {
+    
     justifyContent: "center",
     alignItems: "center",
     marginTop: 36,
